@@ -12,10 +12,19 @@ https://cycle.js.org/streams.html
 
 ## Faux Reactive (Glorified PubSub)
 
-- Overview of Fauxservable class
+### Overview of Fauxservable class
+
+Properties of the object passed to the constructor are iterated over. Each property has a getter and setter defined on it. The setter emits an event that will eventually run all subscription functions for that properties keys.
+
+With this approach we can create a faux reactive state where changes to property values can be observed and then reacted to.
+
 - Run basic
 - Run expression
 - Run map
+
+Overview of Dependable class
+
+This class constructor is much the same as Fauxservable but we're relying on the fact that properties of the data object have getters.
 
 ## Streams of Data
 
