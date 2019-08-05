@@ -14,9 +14,9 @@ class Emitter {
 
   emit(item) {
     if (this.events[item] && this.events[item].length > 0) {
-      this.events[item].forEach(callback =>
-        callback(this.data[item], this.data)
-      );
+      for (let callback of this.events[item]) {
+        callback(this.data[item], this.data);
+      }
     }
   }
 }
