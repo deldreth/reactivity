@@ -1,0 +1,64 @@
+<html>
+  <head>
+    <title>Reactive Programming</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css"
+      integrity="sha256-UzFD2WYH2U1dQpKDjjZK72VtPeWP50NoJjd26rnAdUI="
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/js/all.js"
+      integrity="sha256-S1WJaJce5DQaJRMMO9igZPd6WRgObuRlQXE8i7yKOd8="
+      crossorigin="anonymous"
+    ></script>
+    <style rel="stylesheet">
+      body {
+        font-size: 60px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="output"></div>
+
+    <script type="module">
+      import Observable from "./Observable.mjs";
+
+      function listen(element, event) {
+        return new Observable(observer =>
+          element.addEventListener(event, observer.next, true)
+        );
+      }
+
+      const keymap = {
+        38: "fa-arrow-up",
+        37: "fa-arrow-left",
+        40: "fa-arrow-down",
+        39: "fa-arrow-right"
+      };
+
+      const body = document.querySelector("body");
+      listen(body, "keydown")
+        .filter(event => event.keyCode in keymap)
+        .map(event => keymap[event.keyCode])
+        .subscribe(code => {
+          const output = document.querySelector("#output");
+          if (output.childNodes.length >= 10) {
+            output.removeChild(output.childNodes[0]);
+          }
+
+          output.appendChild(createIcon(code));
+        });
+
+      function createIcon(code) {
+        const div = document.createElement("div");
+
+        const i = document.createElement("i");
+        i.classList.add("fas", code);
+
+        div.appendChild(i);
+        return div;
+      }
+    </script>
+  </body>
+</html>

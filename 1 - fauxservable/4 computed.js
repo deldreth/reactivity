@@ -5,15 +5,12 @@ const faux = new Dependable({
   c: 0,
   a() {
     return this.b + this.c;
-  },
-  d() {
-    return this.a * this.b;
   }
 });
 
-faux.observe("a", a => console.log("a", a));
-faux.observe("d", d => console.log("d", d));
+faux.observe("a", a => console.log(`a = ${a}`));
 
-faux.data.b = 2;
-faux.data.c = 2;
-faux.data.c = 10;
+faux.data.b = 1; // 1 + 0
+faux.data.b = 2; // 2 + 0
+faux.data.c = 10; // 2 + 10
+faux.data.c = -2; // 2 + -2
